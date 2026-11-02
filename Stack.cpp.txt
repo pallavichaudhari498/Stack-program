@@ -1,0 +1,48 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main()
+{
+    stack<char> s;
+    string exp;
+
+    cout << "Enter an expression: ";
+    cin >> exp;
+
+    for (int i = 0; i < exp.length(); i++)
+    {
+        char ch = exp[i];
+
+        if (ch == '(' || ch == '{' || ch == '[')
+        {
+            s.push(ch);
+        }
+        else if (ch == ')' || ch == '}' || ch == ']')
+        {
+            if (s.empty())
+            {
+                cout << "Not Well Parenthesized";
+                return 0;
+            }
+
+            char top = s.top();
+            s.pop();
+
+            if ((ch == ')' && top != '(') ||
+                (ch == '}' && top != '{') ||
+                (ch == ']' && top != '['))
+            {
+                cout << "Not Well Parenthesized";
+                return 0;
+            }
+        }
+    }
+
+    if (s.empty())
+        cout << "Well Parenthesized";
+    else
+        cout << "Not Well Parenthesized";
+
+    return 0;
+}
